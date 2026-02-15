@@ -1,0 +1,32 @@
+# Node
+node_modules/
+dist/
+.env
+.env.*    # si tu as plusieurs fichiers d'environnement
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE / Editor
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# TypeScript / Build
+*.tsbuildinfo
+
+# env files
+.env
+.env.development
+.env.production
+.env.test
+
