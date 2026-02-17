@@ -19,6 +19,7 @@
   "scripts": {
     "apps:api:start": "cd apps/online-text-projector-api && npm run start",
     "apps:api:start:dev": "cd apps/online-text-projector-api && npm run start:dev",
+    "apps:api:start:test-server": "cd apps/online-text-projector-api && npm run start:test-server",
     "apps:client:start": "cd apps/online-text-projector-client && npm run start",
     "apps:client:start:dev": "cd apps/online-text-projector-client && npm run dev"
   }
