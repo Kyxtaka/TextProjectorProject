@@ -1,0 +1,25 @@
+{
+  "name": "online-text-projector",
+  "version": "1.0.0",
+  "description": "A web solution to broadcast text, song, bible verses in realtime within the internet",
+  "homepage": "https://github.com/Kyxtaka/TextProjectorProject#readme",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/Kyxtaka/TextProjectorProject/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kyxtaka/TextProjectorProject.git"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Hikarizsu (Nathan RANDRIANTSOA)",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "apps:api:start": "cd apps/online-text-projector-api && npm run start",
+    "apps:api:start:dev": "cd apps/online-text-projector-api && npm run start:dev",
+    "apps:client:start": "cd apps/online-text-projector-client && npm run start",
+    "apps:client:start:dev": "cd apps/online-text-projector-client && npm run dev"
+  }
+}
