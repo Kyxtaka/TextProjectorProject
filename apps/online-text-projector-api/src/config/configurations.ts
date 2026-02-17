@@ -3,9 +3,17 @@ export default () => ({
     server: (() => {
         const port = parseInt(process.env.PORT || '3000');
         const node_env = process.env.NODE_ENV || 'development';
+        const isProduction = node_env === 'production';
+        const isDevelopment = node_env === 'development';
+        const isTest = node_env === 'test';
+        const cors_origin = process.env.CORS_ORIGIN || '*';
         return {
             port,
             node_env,
+            isProduction,
+            isDevelopment,
+            isTest,
+            cors_origin,
         };
     })(),
 
@@ -17,6 +25,8 @@ export default () => ({
         const username = process.env.DB_USERNAME || 'root';
         const password = process.env.DB_PASSWORD || 'root';
         const database = process.env.DB_NAME || 'test';
+        const synchronize = process.env.DB_SYNCHRONIZE === 'true';
+        const logging = process.env.DB_LOGGING === 'true';
         return {
             type,
             host,
@@ -24,6 +34,8 @@ export default () => ({
             username,
             password,
             database,
+            synchronize,
+            logging,
         };
     })(),
 
