@@ -1,7 +1,7 @@
 import { IsEmail, IsNotEmpty, MinLength, Matches, IsString, IsOptional, IsEnum } from 'class-validator';
 import { Transform } from 'class-transformer';
-import { Match } from '../validators/match.validator.js';
-import { Permission } from '../entities/users.entity.js';
+import { Match } from '../validators/match.validator';
+import { Permission } from '../users.entity';
 
 export class CreateUserDto {
     @IsNotEmpty({ message: 'Le nom d\'utilisateur est requis' })
@@ -11,8 +11,8 @@ export class CreateUserDto {
 
     @IsNotEmpty({ message: 'Le mot de passe est requis' })
     @MinLength(8, { message: 'Le mot de passe doit contenir au moins 8 caractères' })
-    @Matches(/(?=(?:.*[A-Z]){2})/, { 
-        message: 'Le mot de passe doit contenir au moins 2 lettres majuscules' 
+    @Matches(/(?=(?:.*[A-Z]){1})/, { 
+        message: 'Le mot de passe doit contenir au moins 1 lettre majuscule' 
     })
     @Matches(/(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/, { 
         message: 'Le mot de passe doit contenir au moins 1 caractère spécial' 

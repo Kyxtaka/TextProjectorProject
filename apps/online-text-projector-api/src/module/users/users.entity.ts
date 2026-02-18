@@ -3,6 +3,7 @@ import { Column, Entity, PrimaryGeneratedColumn, UpdateDateColumn, CreateDateCol
 export enum Permission {
   MEMBER = 'MEMBER',
   ADMIN = 'ADMIN',
+  SUPER_ADMIN = 'SUPER_ADMIN',
 }
 
 @Entity('users')

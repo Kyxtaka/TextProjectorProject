@@ -20,7 +20,20 @@
     "apps:api:start": "cd apps/online-text-projector-api && npm run start",
     "apps:api:start:dev": "cd apps/online-text-projector-api && npm run start:dev",
     "apps:api:start:test-server": "cd apps/online-text-projector-api && npm run start:test-server",
+    "apps:api:start:debug": "cd apps/online-text-projector-api && npm run start:debug",
+    "apps:api:seed:users:dev": "cd apps/online-text-projector-api && npm run seed:users:dev",
+    "apps:api:seed:users:test": "cd apps/online-text-projector-api && npm run seed:users:test",
+    "apps:api:seed:users:prod": "cd apps/online-text-projector-api && npm run seed:users:prod",
+
     "apps:client:start": "cd apps/online-text-projector-client && npm run start",
     "apps:client:start:dev": "cd apps/online-text-projector-client && npm run dev"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "inquirer": "^13.2.5"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/inquirer": "^9.0.9"
   }
 }

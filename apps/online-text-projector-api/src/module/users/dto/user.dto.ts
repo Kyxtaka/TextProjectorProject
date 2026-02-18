@@ -1,4 +1,4 @@
-import { Permission } from "../entities/users.entity";
+import { Permission } from "../users.entity";
 
 export class UserDto {
     id: number

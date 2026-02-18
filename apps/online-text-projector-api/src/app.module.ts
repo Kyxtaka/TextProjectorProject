@@ -2,10 +2,11 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
-import configurations from 'src/config/configurations';
-import { TypeOrmModule } from '@nestjs/typeorm/dist/typeorm.module';
-import { DatabaseConfigService } from './module/database/database-config/database-config.service';
-import { UserModule } from './module/user/users.module';
+import configurations from './config/configurations';
+import { UsersModule } from './module/users/users.module';
+import { DatabaseModule } from './module/database/database.module';
+import { UserSeeder } from './module/users/user-seeder.seeder';
+
 
 @Module({
   imports: [
@@ -14,11 +15,8 @@ import { UserModule } from './module/user/users.module';
       isGlobal: true,
       load: [configurations],
     }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useClass: DatabaseConfigService,
-    }),
-    UserModule,
+    DatabaseModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
