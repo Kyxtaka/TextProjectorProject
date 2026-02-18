@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import configurations from 'src/config/configurations';
 import { TypeOrmModule } from '@nestjs/typeorm/dist/typeorm.module';
 import { DatabaseConfigService } from './module/database/database-config/database-config.service';
