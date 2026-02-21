@@ -7,13 +7,25 @@ export class UserModel {
     updatedAt: Date
     username: string
     email: string
+    password: string
     permission: Permission
 
-    constructor() { }
-
-    getUserDto(): UserDto {
-        const { id, username, email, permission, createdAt, updatedAt } = this
-        return { id, username, email, permission, createdAt, updatedAt }
+    constructor(
+        id: number,
+        username: string,
+        email: string,
+        password: string,
+        permission: Permission,
+        createdAt: Date,
+        updatedAt: Date
+    ) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.permission = permission;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     getDateCreationAgo(): string {

@@ -6,6 +6,7 @@ import configurations from './config/configurations';
 import { UsersModule } from './module/users/users.module';
 import { DatabaseModule } from './module/database/database.module';
 import { UserSeeder } from './module/users/user-seeder.seeder';
+import { AuthModule } from './module/auth/auth.module';
 
 
 @Module({
@@ -17,6 +18,7 @@ import { UserSeeder } from './module/users/user-seeder.seeder';
     }),
     DatabaseModule,
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
