@@ -16,6 +16,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
             context.getHandler(),
             context.getClass(),
         ]);
+        
         // for example, call super.logIn(request) to establish a session.
         if (allowAnonymous) {
             return true;

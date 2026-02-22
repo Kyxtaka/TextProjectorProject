@@ -20,6 +20,11 @@ export class AuthRoleGuard implements CanActivate {
     }
 
     const { user } = context.switchToHttp().getRequest();
-    return requiredRoles.some((role) => user.roles?.includes(role));
+    // console.log('User in AuthRoleGuard:', user); // Debugging line
+    // if (!user) {
+    //   console.log('error in AuthRoleGuard: No user found in request');
+    //   throw new Error('error user payload is null')
+    // }
+    return requiredRoles.some((role) => user.role === role);
   }
 }

@@ -61,11 +61,12 @@ export class UserService {
         return this.entityToModel(createdUserEntity)
     }
 
-    async deleteUser(id: number): Promise<void> {
+    async deleteUser(id: number): Promise<boolean> {
         const deleteResult = await this.userRepository.delete(id);
         if (deleteResult.affected === 0) {
             throw new NotFoundException(`User with id ${id} not found`);
         }
+        return deleteResult.affected! > 0;
     }
 
     async updateUser(id: number, updateData: UpdateUserDto): Promise<UserModel> {
