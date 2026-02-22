@@ -9,10 +9,8 @@ import { Like, Repository } from 'typeorm';
 import { NotFoundException, BadRequestException } from '@nestjs/common';
 
 
-// don't forget to implement db logic here, this is just a simple in-memory implementation for demonstration purposes
 @Injectable({scope: Scope.DEFAULT}) // singleton
 export class UserService {
-
 
     constructor(
         @InjectRepository(UsersEntity)

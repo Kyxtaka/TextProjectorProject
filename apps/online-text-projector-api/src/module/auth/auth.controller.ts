@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { AuthService } from './service/auth.service';
+import { AuthService } from './auth.service';
 import { JwtAuthGuard } from '../jwt/jwt-auth.guard';
 import { UserService } from '../users/user.service';
 import { AllowAnonymous } from '../../common/decorators/allow-anonymous.decorator';
@@ -20,10 +20,14 @@ export class AuthController {
         return this.authService.login(req.user);
     }
 
-    @UseGuards(JwtAuthGuard)
     @Get('profile')
     async getProfile(@Request() req) {
         const userModel = await this.userService.findUserByEmail(req.user.email);
         return this.userService.modelToDto(userModel);
+    }
+
+    @Get('jwtPayload')
+    async getJwtPayload(@Request() req) {
+        return req.user;
     }
 }
