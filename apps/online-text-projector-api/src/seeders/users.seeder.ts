@@ -3,7 +3,8 @@ import { AppModule } from '../app.module';
 import { UserSeeder } from '../module/users/user-seeder.seeder';
 // import inquirer from 'inquirer';
 import * as bcrypt from 'bcrypt';
-import { Permission } from '../module/users/users.entity';
+// import { ROLES } from '../module/users/users.entity';
+import { ROLES } from '../common/constants/roles.contants';
 import inquirer from 'inquirer';
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
@@ -14,7 +15,7 @@ type UserAccountAnswer = {
     email: string;
     password: string;
     confirmPassword: string;
-    permission: Permission;
+    permission: ROLES;
 };
 
 async function bootstrap() {
@@ -54,11 +55,11 @@ async function bootstrap() {
             name: 'permission',
             message: 'Permission Level:',
             choices: [
-                { name: 'SUPER_ADMIN', value: Permission.SUPER_ADMIN },
-                { name: 'ADMIN', value: Permission.ADMIN },
-                { name: 'MEMBER', value: Permission.MEMBER },
+                { name: 'SUPER_ADMIN', value: ROLES.SUPER_ADMIN },
+                { name: 'ADMIN', value: ROLES.ADMIN },
+                { name: 'MEMBER', value: ROLES.MEMBER },
             ],
-            default: Permission.MEMBER,
+            default: ROLES.MEMBER,
         }
     ];
 

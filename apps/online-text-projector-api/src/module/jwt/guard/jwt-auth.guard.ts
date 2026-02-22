@@ -2,7 +2,7 @@ import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from
 import { Observable } from 'rxjs';
 import { AuthGuard } from '@nestjs/passport';
 import { Reflector } from '@nestjs/core';
-import { ALLOW_ANONYMOUS } from '../../common/decorators/allow-anonymous.decorator';
+import { ALLOW_ANONYMOUS } from '../../../common/decorators/allow-anonymous.decorator';
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
 

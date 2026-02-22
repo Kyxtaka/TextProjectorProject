@@ -1,7 +1,7 @@
 import { IsEmail, IsNotEmpty, MinLength, Matches, IsString, IsOptional, IsEnum } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { Match } from '../validators/match.validator';
-import { Permission } from '../users.entity';
+import { ROLES } from '../../../common/constants/roles.contants';
 
 export class CreateUserDto {
     @IsNotEmpty({ message: 'Le nom d\'utilisateur est requis' })
@@ -33,6 +33,6 @@ export class CreateUserDto {
     email: string;
 
     @IsOptional()
-    @IsEnum(Permission)
-    permission?: Permission = Permission.MEMBER;
+    @IsEnum(ROLES)
+    permission?: ROLES = ROLES.MEMBER;
 }

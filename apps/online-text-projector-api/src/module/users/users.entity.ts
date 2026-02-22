@@ -1,10 +1,11 @@
 import { Column, Entity, PrimaryGeneratedColumn, UpdateDateColumn, CreateDateColumn } from 'typeorm';
-
-export enum Permission {
-  MEMBER = 'MEMBER',
-  ADMIN = 'ADMIN',
-  SUPER_ADMIN = 'SUPER_ADMIN',
-}
+import { ROLES } from '../../common/constants/roles.contants';
+ 
+// export enum Permission {
+//   MEMBER = 'MEMBER',
+//   ADMIN = 'ADMIN',
+//   SUPER_ADMIN = 'SUPER_ADMIN',
+// }
 
 @Entity('users')
 export class UsersEntity {
@@ -23,10 +24,10 @@ export class UsersEntity {
 
     @Column({
         type: 'enum',
-        enum: Permission,
-        default: Permission.MEMBER,
+        enum: ROLES,
+        default: ROLES.MEMBER,
     })
-    permission: Permission
+    permission: ROLES
 
     @CreateDateColumn()
     createdAt: Date

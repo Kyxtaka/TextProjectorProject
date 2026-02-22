@@ -1,5 +1,5 @@
 import { UserDto } from "./dto/user.dto"
-import { Permission } from "./users.entity"
+import { ROLES } from "../../common/constants/roles.contants"; 
 
 export class UserModel {
     id: number
@@ -8,14 +8,14 @@ export class UserModel {
     username: string
     email: string
     password: string
-    permission: Permission
+    permission: ROLES
 
     constructor(
         id: number,
         username: string,
         email: string,
         password: string,
-        permission: Permission,
+        permission: ROLES,
         createdAt: Date,
         updatedAt: Date
     ) {

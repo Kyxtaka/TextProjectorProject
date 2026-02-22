@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
-import { JwtAuthGuard } from '../jwt/jwt-auth.guard';
+import { JwtAuthGuard } from '../jwt/guard/jwt-auth.guard';
 import { UserService } from '../users/user.service';
 import { AllowAnonymous } from '../../common/decorators/allow-anonymous.decorator';
 

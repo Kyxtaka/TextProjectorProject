@@ -8,4 +8,9 @@ export class JwtAuthService {
     sign(payload: any): string {
         return this.jwtService.sign(payload);
     }
-}
+
+    getDeviceInfosTokenFromUserId(userId: number): string {
+        const payload = { sub: userId };
+        return this.jwtService.sign(payload);
+    }
+}   

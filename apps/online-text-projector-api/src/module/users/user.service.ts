@@ -1,12 +1,13 @@
 import { Injectable, Scope } from '@nestjs/common';
 import { UserModel } from './user.model';
-import { Permission, UsersEntity } from './users.entity';
+import { UsersEntity } from './users.entity';
 import { UserDto } from './dto/user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Like, Repository } from 'typeorm';
 import { NotFoundException, BadRequestException } from '@nestjs/common';
+import { ROLES } from '../../common/constants/roles.contants';
 
 
 @Injectable({scope: Scope.DEFAULT}) // singleton
@@ -50,10 +51,10 @@ export class UserService {
         const userEntity = new UsersEntity();
         userEntity.username = createDTO.username;
         userEntity.email = createDTO.email;
-        if (createDTO.permission && !Object.values(Permission).includes(createDTO.permission)) {
+        if (createDTO.permission && !Object.values(ROLES).includes(createDTO.permission)) {
             throw new BadRequestException(`Invalid permission value: ${createDTO.permission}`);
         }
-        userEntity.permission = createDTO.permission ?? Permission.MEMBER;
+        userEntity.permission = createDTO.permission ?? ROLES.MEMBER;
         const createdUserEntity = await this.userRepository.save(userEntity)
         if (!createdUserEntity) {
             throw new Error('Failed to create user');
@@ -69,6 +70,16 @@ export class UserService {
         return deleteResult.affected! > 0;
     }
 
+    // async requestDeletion(id: number): Promise<boolean> {
+    //     const userEntity = await this.userRepository.findOneBy({ id: id });
+    //     if (!userEntity) {
+    //         throw new NotFoundException(`User with id ${id} not found`);
+    //     }
+    //     userEntity.permission = ROLES.REQUEST_DELETION;
+    //     const updatedUserEntity = await this.userRepository.save(userEntity);
+    //     return updatedUserEntity.permission === ROLES.REQUEST_DELETION;
+    // }
+
     async updateUser(id: number, updateData: UpdateUserDto): Promise<UserModel> {
         const userEntity = await this.userRepository.findOneBy({ id: id });
         if (!userEntity) {
@@ -78,10 +89,14 @@ export class UserService {
             userEntity.username = updateData.username;
         }
         if (updateData.email) {
+            const existingUser = await this.userRepository.findOneBy({ email: updateData.email });
+            if (existingUser && existingUser.id !== id) {
+                throw new BadRequestException(`Email ${updateData.email} is already taken`);
+            }
             userEntity.email = updateData.email;
         }
         if (updateData.permission) {
-            if (!Object.values(Permission).includes(updateData.permission)) {
+            if (!Object.values(ROLES).includes(updateData.permission)) {
                 throw new BadRequestException(`Invalid permission value: ${updateData.permission}`);
             }
             userEntity.permission = updateData.permission;
