@@ -5,34 +5,25 @@ import { UsersModule } from '../users/users.module';
 import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './strategy/local.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { JwtModule } from '@nestjs/jwt';
-import { JwtStrategy } from './strategy/jwt.strategy';
-import { JwtAuthGuard } from './guard/jwt-auth.guard';
-import { APP_GUARD } from '@nestjs/core/constants';
+import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtAuthModule } from '../jwt/jwt-auth.module';
+// import { JwtStrategy } from '../jwt/jwt.s-authtrategy';
+// import { JwtAuthGuard } from '../jwt/jwt-auth.guard';
+// import { APP_GUARD } from '@nestjs/core/constants';
+// import { JwtAuthModule } from '../jwt/jwt-auth.module';
 
 @Module({
   controllers: [AuthController],
   providers: [
     AuthService, 
-    LocalStrategy, 
-    JwtStrategy,
-    {
-      provide: APP_GUARD,
-      useClass: JwtAuthGuard,
-    },
+    LocalStrategy,
+    JwtService  
   ],
   imports: [
     UsersModule,
     PassportModule,
     ConfigModule,
-    JwtModule.registerAsync({
-        imports: [ConfigModule],
-        inject: [ConfigService],
-        useFactory: async (configService: ConfigService) => ({
-          secret: configService.get('JWT_SECRET'),
-          signOptions: { expiresIn: configService.get('JWT_EXPIRES_IN') || '1h' },
-        }),
-    })
+    JwtAuthModule
   ],
   exports: [AuthService]
 })

@@ -2,7 +2,7 @@ import { Controller, Get, Param, Post, Query, Body, UseGuards } from '@nestjs/co
 import { UserDto } from './dto/user.dto';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
+import { JwtAuthGuard } from '../jwt/jwt-auth.guard';
 import { Request } from '@nestjs/common';
 
 @Controller('users')
@@ -17,11 +17,11 @@ export class UsersController {
         return 'Hello World!';
     }
 
-    @Get(':id')
-    async getUserById(@Param('id') id: number): Promise<UserDto> {
-        const user = await this.userService.findUserById(id);
-        return this.userService.modelToDto(user);
-    }
+    // @Get(':id')
+    // async getUserById(@Param('id') id: number): Promise<UserDto> {
+    //     const user = await this.userService.findUserById(id);
+    //     return this.userService.modelToDto(user);
+    // }
 
     @Get()
     async getAllUsers(@Query('search') search?: string): Promise<UserDto[]> {
@@ -33,6 +33,13 @@ export class UsersController {
     async createUser(@Body() createUserDto: CreateUserDto): Promise<UserDto> {
         const user = await this.userService.createUser(createUserDto);
         return this.userService.modelToDto(user);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('profile')
+    async getProfile(@Request() req) {
+        const userModel = await this.userService.findUserByEmail(req.user.email);
+        return this.userService.modelToDto(userModel);
     }
 
     
