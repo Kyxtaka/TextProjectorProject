@@ -7,7 +7,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Like, Repository } from 'typeorm';
 import { NotFoundException, BadRequestException } from '@nestjs/common';
-import { ROLES } from '../../common/constants/roles.contants';
+import { ROLES } from '../../common/constants/roles.constant';
 
 
 @Injectable({scope: Scope.DEFAULT}) // singleton

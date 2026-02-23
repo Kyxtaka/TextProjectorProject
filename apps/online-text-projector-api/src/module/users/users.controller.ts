@@ -5,7 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { JwtAuthGuard } from '../jwt/guard/jwt-auth.guard';
 import { Request } from '@nestjs/common';
 import { AuthRole } from '../../common/decorators/auth-role.decorator';
-import { ROLES } from '../../common/constants/roles.contants';
+import { ROLES } from '../../common/constants/roles.constant';
 import { AuthRoleGuard } from '../auth/guard/authRole.guard';
 import { UpdateUserDto } from './dto/update-user.dto';
 @Controller('users')

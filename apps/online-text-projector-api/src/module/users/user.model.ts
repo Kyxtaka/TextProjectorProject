@@ -1,5 +1,5 @@
 import { UserDto } from "./dto/user.dto"
-import { ROLES } from "../../common/constants/roles.contants"; 
+import { ROLES } from "../../common/constants/roles.constant"; 
 
 export class UserModel {
     id: number

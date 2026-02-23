@@ -1,7 +1,7 @@
 import { IsEmail, IsNotEmpty, MinLength, Matches, IsString, IsOptional, IsEnum } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { Match } from '../validators/match.validator';
-import { ROLES } from '../../../common/constants/roles.contants';
+import { ROLES } from '../../../common/constants/roles.constant';
 
 export class CreateUserDto {
     @IsNotEmpty({ message: 'Le nom d\'utilisateur est requis' })

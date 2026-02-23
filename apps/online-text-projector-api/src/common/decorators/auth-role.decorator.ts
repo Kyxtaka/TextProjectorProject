@@ -3,7 +3,7 @@ import { applyDecorators, SetMetadata } from '@nestjs/common';
 import { UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { AuthRoleGuard } from '../../module/auth/guard/authRole.guard';
-import { ROLES } from '../constants/roles.contants';
+import { ROLES } from '../constants/roles.constant';
 // import { RolesGuard } from '../../module/auth/guards/roles.guard';
 export function AuthRole(...roles: ROLES[]) {
   return applyDecorators(

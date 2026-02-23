@@ -9,6 +9,7 @@ export class AuthService {
   constructor(
     private jwtService: JwtAuthService ,
     private userService: UserService,
+    private readonlu 
   ) {}
 
   async validateUserCredentials(email: string, password: string): Promise<UserModel | null> {
@@ -24,5 +25,11 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+
+  async insertJwtIssued(jti: string, userId: number, expiresIn: number, type: string) {
+    const issuedAt = new Date();
+    const expiresAt = new Date(issuedAt.getTime() + expiresIn * 1000);
+    await this.jwtService.insertJwtIssued(jti, userId, issuedAt, expiresAt, type);
   }
 }

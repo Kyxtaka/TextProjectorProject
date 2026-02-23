@@ -7,9 +7,10 @@ import { ConfigService } from '@nestjs/config/dist/config.service';
 import { ConfigModule } from '@nestjs/config/dist/config.module';
 import { JwtModule } from '@nestjs/jwt';
 import { Type } from 'class-transformer';
-import { JwtRevokedEntity } from './entity/jwt-revoked.entity';
+// import { JwtRevokedEntity } from './entity/jwt-revoked.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtRevokedService } from './service/jwt-revoked.service';
+import { JwtIssuedEntity } from './entity/jwt-issued.entity';
 
 @Module({
     imports: [
@@ -21,7 +22,7 @@ import { JwtRevokedService } from './service/jwt-revoked.service';
             signOptions: { expiresIn: configService.get('JWT_EXPIRES_IN') || '1h' },
             }),
         }),
-        TypeOrmModule.forFeature([JwtRevokedEntity]),
+        TypeOrmModule.forFeature([JwtIssuedEntity]),
     ],
     controllers: [],
     providers: [

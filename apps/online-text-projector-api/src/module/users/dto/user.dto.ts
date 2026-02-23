@@ -1,4 +1,4 @@
-import { ROLES } from "../../../common/constants/roles.contants";
+import { ROLES } from "../../../common/constants/roles.constant";
 
 export class UserDto {
     id: number

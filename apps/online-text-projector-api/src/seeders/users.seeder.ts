@@ -4,7 +4,7 @@ import { UserSeeder } from '../module/users/user-seeder.seeder';
 // import inquirer from 'inquirer';
 import * as bcrypt from 'bcrypt';
 // import { ROLES } from '../module/users/users.entity';
-import { ROLES } from '../common/constants/roles.contants';
+import { ROLES } from '../common/constants/roles.constant';
 import inquirer from 'inquirer';
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';

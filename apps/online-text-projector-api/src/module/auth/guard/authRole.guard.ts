@@ -2,7 +2,7 @@ import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from
 import { Observable } from "rxjs";
 import { AuthGuard } from "@nestjs/passport";
 import { Reflector } from "@nestjs/core";
-import { ROLES } from '../../../common/constants/roles.contants';
+import { ROLES } from '../../../common/constants/roles.constant';
 
 
 @Injectable()
