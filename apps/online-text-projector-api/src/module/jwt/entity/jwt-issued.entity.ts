@@ -1,19 +1,16 @@
-import { PrimaryGeneratedColumn, Column, ForeignKey, Entity } from "typeorm";
-import { UserEntity } from "../../user/entity/user.entity";
-import { JWT_TYPE } from "../../common/constants/jwt-type.constant";
+import { PrimaryGeneratedColumn, Column, ForeignKey, Entity, Unique } from "typeorm";
+import { UsersEntity } from "../../users/users.entity";
+import { JWT_TYPE } from "../../../common/constants/jwt-type.constant";
 @Entity('jwt_issued')
 export class JwtIssuedEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    uuid: string; // Unique identifier for the JWT issued record
-
-    @Column()
+    @Column({ unique: true })
     jti: string; // JWT ID
 
     @Column()
-    @ForeignKey(() => UserEntity) // Assuming you have a UserEntity defined
+    @ForeignKey(() => UsersEntity) // Assuming you have a UsersEntity defined
     userId: number; // User ID associated with the JWT
 
     @Column({ type: 'timestamp' })

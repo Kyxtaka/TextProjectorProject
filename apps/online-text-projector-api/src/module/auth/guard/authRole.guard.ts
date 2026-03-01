@@ -7,6 +7,7 @@ import { ROLES } from '../../../common/constants/roles.constant';
 
 @Injectable()
 export class AuthRoleGuard implements CanActivate {
+  
   constructor(private readonly reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean | Observable<boolean> {
@@ -14,17 +15,8 @@ export class AuthRoleGuard implements CanActivate {
       context.getHandler(),
       context.getClass(),
     ]);
-
-    if (!requiredRoles) {
-      return true;
-    }
-
+    if (!requiredRoles) return true; // Si aucune règle de rôle n'est définie, autoriser l'accès
     const { user } = context.switchToHttp().getRequest();
-    // console.log('User in AuthRoleGuard:', user); // Debugging line
-    // if (!user) {
-    //   console.log('error in AuthRoleGuard: No user found in request');
-    //   throw new Error('error user payload is null')
-    // }
     return requiredRoles.some((role) => user.role === role);
   }
 }

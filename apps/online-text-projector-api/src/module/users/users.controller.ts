@@ -35,7 +35,7 @@ export class UsersController {
             throw new NotFoundException(`User with id ${id} not found`);
         }
 
-        const isSelf = req.user.sub === Number(id);
+        const isSelf = req.user.sub === Number(id); 
         const isAdmin = req.user.role === ROLES.ADMIN;
         const isSuperAdmin = req.user.role === ROLES.SUPER_ADMIN;
         const isPermissionUpdate = !!updateUserDto.permission;

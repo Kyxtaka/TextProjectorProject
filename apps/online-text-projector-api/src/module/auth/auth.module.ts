@@ -17,7 +17,7 @@ import { JwtAuthModule } from '../jwt/jwt-auth.module';
   providers: [
     AuthService, 
     LocalStrategy,
-    JwtService  
+    JwtService,
   ],
   imports: [
     UsersModule,

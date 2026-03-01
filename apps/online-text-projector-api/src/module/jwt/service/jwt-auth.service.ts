@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { JwtIssuedEntity } from '../entity/jwt-issued.entity';
 import { Repository } from 'typeorm';
 import crypto from 'crypto';
+import { JWT_TYPE } from '../../../common/constants/jwt-type.constant';
 
 @Injectable()
 export class JwtAuthService { 
@@ -18,30 +19,27 @@ export class JwtAuthService {
         return this.jwtService.sign(payload);
     }
 
-
-
-    async insertJwtIssued(jti: string, userId: number, issuedAt: Date, expiresAt: Date, type: string): Promise<JwtIssuedEntity> {
-        // Implement the logic to insert the issued JWT details into the database
-        // This is a placeholder and should be replaced with actual database interaction code
+    async insertJwtIssued(jti: string, userId: number, issuedAt: Date, expiresAt: Date, type: JWT_TYPE): Promise<JwtIssuedEntity> {
         console.log(`Inserting JWT Issued: jti=${jti}, userId=${userId}, issuedAt=${issuedAt}, expiresAt=${expiresAt}, type=${type}`);
-        const uuid = crypto.randomUUID();
         const jwtIssued = {
-            jti,
-            userId,
-            issuedAt,
-            expiresAt,
-            type,
+            jti: jti,
+            userId: userId,
+            issuedAt: issuedAt,
+            expiresAt: expiresAt,
+            type: type as JWT_TYPE,
         };
         const result = await this.jwtIssuedRepository.save(jwtIssued);
         console.log('JWT Issued saved to database:', result);
         return result;
-        // Here you would typically use a repository or service to save jwtIssued to the database
     }
 
-
-    getDeviceHash(userAgent: string, ipAddress: string): string {
-        const hash = crypto.createHash('sha256');
-        hash.update(userAgent + ipAddress);
-        return hash.digest('hex');
+    async findJwtIssuedByJti(jti: string): Promise<JwtIssuedEntity | null> {
+        return await this.jwtIssuedRepository.findOne({ where: { jti } });
     }
+
+    // getDeviceHash(userAgent: string, ipAddress: string): string {
+    //     const hash = crypto.createHash('sha256');
+    //     hash.update(userAgent + ipAddress);
+    //     return hash.digest('hex');
+    // }
 }   

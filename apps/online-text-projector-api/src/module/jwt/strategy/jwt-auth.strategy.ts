@@ -22,8 +22,7 @@ export class JwtAuthStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    // Vérifie si le token a été révoqué (par exemple via jti ou sub)
-    if (await this.jwtRevokedService.isRevoked(payload.jti || payload.sub)) {
+    if (await this.jwtRevokedService.isRevokedByJti(payload.jti)) {
       throw new UnauthorizedException('Token has been revoked');
     }
     return { ...payload, id: payload.sub };
