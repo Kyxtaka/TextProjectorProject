@@ -55,5 +55,27 @@ export default () => ({
             database,
             uri: `mongodb://${username}:${password}@${host}:${port}/${database}?authSource=admin`,
         };
-    })()
+    })(),
+
+    // redis configuration
+    redis: (() => {
+        const host = process.env.REDIS_HOST || 'localhost';
+        const port = parseInt(process.env.REDIS_PORT || '6379');
+        return {
+            host,
+            port,
+        };
+    })(),
+
+    // JWT configuration
+    jwt: (() => {
+        const secret = process.env.JWT_SECRET || 'default_secret';
+        const accessExpiresIn = parseInt(process.env.JWT_ACCESS_EXPIRES_IN || '86400'); // Default to 1 day
+        const refreshExpiresIn = parseInt(process.env.JWT_REFRESH_EXPIRES_IN || '604800'); // Default to 7 days
+        return {
+            secret,
+            accessExpiresIn,
+            refreshExpiresIn,
+        };
+    })(),
 });
