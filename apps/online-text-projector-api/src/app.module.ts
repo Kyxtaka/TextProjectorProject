@@ -5,8 +5,8 @@ import { ConfigModule } from '@nestjs/config';
 import configurations from './config/configurations';
 import { UsersModule } from './module/users/users.module';
 import { DatabaseModule } from './module/database/database.module';
-import { UserSeeder } from './module/users/user-seeder.seeder';
 import { AuthModule } from './module/auth/auth.module';
+import { SongModule } from './module/song/song.module';
 
 
 @Module({
@@ -18,6 +18,7 @@ import { AuthModule } from './module/auth/auth.module';
     }),
     DatabaseModule,
     UsersModule,
+    SongModule,
     AuthModule,
   ],
   controllers: [AppController],

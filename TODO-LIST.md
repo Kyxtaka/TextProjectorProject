@@ -15,3 +15,8 @@
 - dashboard online screen projection management
 - simplification screen link with QR-code
 - extends screen handling with multiple screen
+
+
+## new constraint : 
+- 1 remember token renew only one specific jwt -> use jwt issued table to manege, change architecture and etc
+- 

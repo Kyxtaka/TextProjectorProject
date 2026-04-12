@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
+import { MongooseModuleFactoryOptions } from '@nestjs/mongoose';
 import { UsersEntity } from '../../users/users.entity';
 import { JwtIssuedEntity } from '../../jwt/entity/jwt-issued.entity';
 
@@ -21,6 +22,13 @@ export class DatabaseConfigService implements TypeOrmOptionsFactory {
             synchronize: this.configService.get<boolean>('database.synchronize') || false, // please use migration in production instead of synchronize: true
             logging: this.configService.get<boolean>('database.logging') || false,
             name: connectionName || 'default',
+        };
+        return config;
+    }
+
+    createMongooseOptions(): MongooseModuleFactoryOptions {
+        const config: MongooseModuleFactoryOptions = {
+            uri: this.configService.get<string>('mongodb.uri'),
         };
         return config;
     }

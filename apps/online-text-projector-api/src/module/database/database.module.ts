@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseConfigService } from './database-config/database-config.service';
 import { TypeOrmModule } from '@nestjs/typeorm/dist/typeorm.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
     imports: [
@@ -10,6 +11,10 @@ import { TypeOrmModule } from '@nestjs/typeorm/dist/typeorm.module';
             imports: [ConfigModule],
             useClass: DatabaseConfigService,
         }),
+        MongooseModule.forRootAsync({
+            imports: [ConfigModule],
+            useClass: DatabaseConfigService,
+        })
     ],
     providers: [DatabaseConfigService]
 })

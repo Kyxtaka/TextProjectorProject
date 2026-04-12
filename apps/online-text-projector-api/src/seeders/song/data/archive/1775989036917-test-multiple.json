@@ -1,0 +1,43 @@
+[
+  {
+    "title": "Song Test Batch 1",
+    "artist": "Test Artist B",
+    "album": "Test Album B",
+    "year": 2023,
+    "content": [
+      {
+        "type": "strophe",
+        "order": 1,
+        "data": "Batch song one, first stanza."
+      },
+      {
+        "type": "chorus",
+        "order": 2,
+        "data": "Batch song one, chorus."
+      }
+    ]
+  },
+  {
+    "title": "Song Test Batch 2",
+    "artist": "Test Artist C",
+    "album": "Test Album C",
+    "year": 2022,
+    "content": [
+      {
+        "type": "strophe",
+        "order": 1,
+        "data": "Batch song two, first stanza."
+      },
+      {
+        "type": "strophe",
+        "order": 2,
+        "data": "Batch song two, second stanza."
+      },
+      {
+        "type": "bridge",
+        "order": 3,
+        "data": "Batch song two, bridge."
+      }
+    ]
+  }
+]

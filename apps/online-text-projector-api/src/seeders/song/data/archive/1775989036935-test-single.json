@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Song Test Single",
+    "artist": "Test Artist A",
+    "album": "Test Album A",
+    "year": 2024,
+    "content": [
+      {
+        "type": "strophe",
+        "order": 1,
+        "data": "This is a single test song."
+      },
+      {
+        "type": "strophe",
+        "order": 2,
+        "data": "Second line of the test song."
+      }
+    ]
+  }
+]

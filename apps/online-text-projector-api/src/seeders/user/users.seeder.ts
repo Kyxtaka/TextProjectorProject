@@ -1,14 +1,12 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from '../app.module';
-import { UserSeeder } from '../module/users/user-seeder.seeder';
-// import inquirer from 'inquirer';
+import { AppModule } from '../../app.module';
+import { UserSeeder } from '../../module/users/user-seeder.seeder';
 import * as bcrypt from 'bcrypt';
-// import { ROLES } from '../module/users/users.entity';
-import { ROLES } from '../common/constants/roles.constant';
+import { ROLES } from '../../common/constants/roles.constant';
 import inquirer from 'inquirer';
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
-import { CreateUserDto } from '../module/users/dto/create-user.dto';
+import { CreateUserDto } from '../../module/users/dto/create-user.dto';
 
 type UserAccountAnswer = {
     username: string;
@@ -83,7 +81,7 @@ async function bootstrap() {
         username: answers.username,
         email: answers.email,
         password: hashedPassword,
-        confirmPassword: hashedPassword, // just to satisfy the DTO validation, it won't be used
+        confirmPassword: hashedPassword,
         permission: answers.permission,
     };
 
