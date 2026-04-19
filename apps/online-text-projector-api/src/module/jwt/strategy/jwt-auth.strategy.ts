@@ -8,7 +8,7 @@ import { JwtRevokedService } from '../service/jwt-revoked.service';
 export class JwtAuthStrategy extends PassportStrategy(Strategy) {
   constructor(
     configService: ConfigService,
-    private readonly jwtRevokedService: JwtRevokedService, // à injecter
+    private readonly jwtRevokedService: JwtRevokedService,
   ) {
     const jwtSecret = configService.get<string>('JWT_SECRET');
     if (!jwtSecret) {

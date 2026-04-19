@@ -1,10 +1,8 @@
 import { Controller, Get, Post, Request, UseGuards, Param, BadRequestException } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
-import { JwtAuthGuard } from '../jwt/guard/jwt-auth.guard';
 import { UserService } from '../users/user.service';
 import { AllowAnonymous } from '../../common/decorators/allow-anonymous.decorator';
-import { JwtAuthService } from '../jwt/service/jwt-auth.service';
 
 @Controller('auth')
 export class AuthController {
