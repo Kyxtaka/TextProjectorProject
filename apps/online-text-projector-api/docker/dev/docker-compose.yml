@@ -1,0 +1,15 @@
+services:
+  local-db:
+    container_name: local-db
+    image: mariadb:12.3
+    restart: always
+    environment:
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: "yes"
+    ports:
+      - "3306:3306"
+    volumes:
+      - local-db-data:/var/lib/mysql
+
+volumes:
+  local-db-data:
+    driver: local

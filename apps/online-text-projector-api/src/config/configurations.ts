@@ -23,10 +23,10 @@ export default () => ({
         const host = process.env.DB_HOST || 'localhost';
         const port = parseInt(process.env.DB_PORT || '3306'); 
         const username = process.env.DB_USERNAME || 'root';
-        const password = process.env.DB_PASSWORD || 'root';
-        const database = process.env.DB_NAME || 'test';
+        const password = process.env.DB_PASSWORD || '';
+        const database = process.env.DB_NAME || 'otp_database_dev';
         const synchronize = process.env.DB_SYNCHRONIZE === 'true';
-        const logging = process.env.DB_LOGGING === 'true';
+        const logging = process.env.DB_LOGGING === 'false' ? false : true;
         return {
             type,
             host,
@@ -43,9 +43,9 @@ export default () => ({
     mongodb: (() => {
         const host = process.env.MONGO_HOST || 'localhost';
         const port = parseInt(process.env.MONGO_PORT || '27017');
-        const username = process.env.MONGO_USERNAME || 'root';
-        const password = process.env.MONGO_PASSWORD || 'root';
-        const database = process.env.MONGO_DB_NAME || 'test';
+        const username = process.env.MONGO_USERNAME || '';
+        const password = process.env.MONGO_PASSWORD || '';
+        const database = process.env.MONGO_DB_NAME || 'otpcontentdev';
         
         return {
             host,
