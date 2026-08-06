@@ -1,5 +1,4 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
-import { Observable } from 'rxjs';
 import { AuthGuard } from '@nestjs/passport';
 import { Reflector } from '@nestjs/core';
 import { ALLOW_ANONYMOUS } from '../../../common/decorators/allow-anonymous.decorator';
@@ -16,7 +15,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
             context.getHandler(),
             context.getClass(),
         ]);
-        
+
         // for example, call super.logIn(request) to establish a session.
         if (allowAnonymous) {
             return true;
@@ -27,7 +26,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     handleRequest(err, user, info) {
         // You can throw an exception based on either "info" or "err" arguments
         if (err || !user) {
-        throw err || new UnauthorizedException();
+            throw err || new UnauthorizedException();
         }
         return user;
     }

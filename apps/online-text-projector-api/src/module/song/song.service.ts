@@ -90,4 +90,8 @@ export class SongService {
         }
         return true;
     }
+
+    async getAllSongs(): Promise<SongDocument[]> {
+        return this.songModel.find().exec();
+    }
 }

@@ -23,8 +23,10 @@ export class AuthService {
   async validateUserCredentials(email: string, password: string): Promise<UserModel | null> {
     const user = await this.userService.findUserByEmail(email);
     if (user && await bcrypt.compare(password, user.password)) {
-      return user;
+      console.log('User validated successfully:', user);
+      return user;  
     }
+    console.log('Invalid credentials provided for email:', email);
     return null;
   }
 

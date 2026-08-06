@@ -15,7 +15,7 @@ export class AuthRoleGuard implements CanActivate {
       context.getHandler(),
       context.getClass(),
     ]);
-    if (!requiredRoles) return true; // Si aucune règle de rôle n'est définie, autoriser l'accès
+    if (!requiredRoles) return true; // if no roles are required, allow access
     const { user } = context.switchToHttp().getRequest();
     return requiredRoles.some((role) => user.role === role);
   }
