@@ -10,7 +10,7 @@ export class AuthController {
     constructor(
         private readonly authService: AuthService,
         private readonly userService: UserService
-    ) {}
+    ) { }
 
     @AllowAnonymous()
     @UseGuards(AuthGuard('local'))
@@ -33,7 +33,7 @@ export class AuthController {
     }
 
     @Get('token/revoke/:jti')
-    async revokeToken(@Request() req, @Param('jti') jti: string) {      
+    async revokeToken(@Request() req, @Param('jti') jti: string) {
         if (!jti) {
             throw new BadRequestException('JTI is required');
         }

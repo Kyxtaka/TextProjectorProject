@@ -24,4 +24,4 @@ import { SongModule } from './module/song/song.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

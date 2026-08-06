@@ -4,7 +4,7 @@ export class Payload {
     sub: number;
     role: string;
     jti: string; // JWT ID
-    jwt_type : JWT_TYPE; // JWT Type (e.g., 'access' or 'refresh')
+    jwt_type: JWT_TYPE; // JWT Type (e.g., 'access' or 'refresh')
     iat?: number; // Issued at timestamp
     exp?: number; // Expiration timestamp
 }

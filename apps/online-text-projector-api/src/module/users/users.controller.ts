@@ -13,7 +13,7 @@ export class UsersController {
 
     constructor(
         private readonly userService: UserService
-    ) {}
+    ) { }
 
     @Get(':id')
     @AuthRole(ROLES.ADMIN, ROLES.SUPER_ADMIN)
@@ -35,7 +35,7 @@ export class UsersController {
             throw new NotFoundException(`User with id ${id} not found`);
         }
 
-        const isSelf = req.user.sub === Number(id); 
+        const isSelf = req.user.sub === Number(id);
         const isAdmin = req.user.role === ROLES.ADMIN;
         const isSuperAdmin = req.user.role === ROLES.SUPER_ADMIN;
         const isPermissionUpdate = !!updateUserDto.permission;
@@ -81,7 +81,7 @@ export class UsersController {
         if (!processed) {
             throw new NotFoundException(`User with id ${id} not found`);
         }
-        return true; 
+        return true;
     }
 
     @Get()
@@ -96,5 +96,5 @@ export class UsersController {
     async createUser(@Body() createUserDto: CreateUserDto): Promise<UserDto> {
         const user = await this.userService.createUser(createUserDto);
         return this.userService.modelToDto(user);
-    }    
+    }
 }

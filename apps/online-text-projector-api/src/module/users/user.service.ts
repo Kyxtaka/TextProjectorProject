@@ -10,7 +10,7 @@ import { NotFoundException, BadRequestException } from '@nestjs/common';
 import { ROLES } from '../../common/constants/roles.constant';
 
 
-@Injectable({scope: Scope.DEFAULT}) // singleton
+@Injectable({ scope: Scope.DEFAULT }) // singleton
 export class UserService {
 
     constructor(
@@ -27,7 +27,7 @@ export class UserService {
                 { permission: Like(`%${search}%`) }
             ];
         }
-        const allUsersEntities: UsersEntity[] = await this.userRepository.find({where})
+        const allUsersEntities: UsersEntity[] = await this.userRepository.find({ where })
         return allUsersEntities.map(user => this.entityToModel(user))
     }
 

@@ -1,4 +1,4 @@
-import {Injectable} from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { JwtIssuedEntity } from "../../jwt/entity/jwt-issued.entity";
 import { JwtService } from "@nestjs/jwt";

@@ -12,7 +12,7 @@ import { JwtAuthModule } from '../jwt/jwt-auth.module';
 @Module({
   controllers: [AuthController],
   providers: [
-    AuthService, 
+    AuthService,
     LocalStrategy,
     JwtService,
   ],

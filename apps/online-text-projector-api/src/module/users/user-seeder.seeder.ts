@@ -10,12 +10,12 @@ export class UserSeeder {
     constructor(
         @InjectRepository(UsersEntity)
         private readonly userRepository: Repository<UsersEntity>
-    ) {}
+    ) { }
 
 
     async createUser(userData: CreateUserDto) {
-        const existingUser = await this.userRepository.findOne({ 
-            where: { email: userData.email } 
+        const existingUser = await this.userRepository.findOne({
+            where: { email: userData.email }
         });
 
         if (existingUser) {

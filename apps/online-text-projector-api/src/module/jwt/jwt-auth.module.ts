@@ -36,4 +36,4 @@ import { JwtIssuedEntity } from './entity/jwt-issued.entity';
   ],
   exports: [JwtAuthStrategy, JwtAuthService, JwtAuthGuard, JwtRevokedService],
 })
-export class JwtAuthModule {}
+export class JwtAuthModule { }

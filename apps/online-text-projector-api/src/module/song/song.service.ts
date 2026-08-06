@@ -10,7 +10,7 @@ export class SongService {
     constructor(
         @InjectModel(Song.name)
         private readonly songModel: Model<Song>
-    ) {}
+    ) { }
 
     async findAllSongs(search?: string): Promise<SongDocument[]> {
         if (!search) {

@@ -6,7 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
     imports: [
-        ConfigModule, 
+        ConfigModule,
         TypeOrmModule.forRootAsync({
             imports: [ConfigModule],
             useClass: DatabaseConfigService,
@@ -18,4 +18,4 @@ import { MongooseModule } from '@nestjs/mongoose';
     ],
     providers: [DatabaseConfigService]
 })
-export class DatabaseModule {}
+export class DatabaseModule { }

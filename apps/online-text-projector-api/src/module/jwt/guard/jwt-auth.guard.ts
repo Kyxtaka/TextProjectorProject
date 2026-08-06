@@ -10,13 +10,11 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     }
 
     canActivate(context: ExecutionContext) {
-        // Add your custom authentication logic here
         const allowAnonymous = this.reflector.getAllAndOverride<boolean>(ALLOW_ANONYMOUS, [
             context.getHandler(),
             context.getClass(),
         ]);
 
-        // for example, call super.logIn(request) to establish a session.
         if (allowAnonymous) {
             return true;
         }
@@ -24,7 +22,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     }
 
     handleRequest(err, user, info) {
-        // You can throw an exception based on either "info" or "err" arguments
         if (err || !user) {
             throw err || new UnauthorizedException();
         }

@@ -18,5 +18,5 @@ import { JwtAuthModule } from '../jwt/jwt-auth.module';
     controllers: [SongController],
     exports: [SongService],
 })
-export class SongModule {}
+export class SongModule { }
 

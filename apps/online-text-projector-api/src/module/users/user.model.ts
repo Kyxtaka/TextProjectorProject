@@ -1,5 +1,5 @@
 import { UserDto } from "./dto/user.dto"
-import { ROLES } from "../../common/constants/roles.constant"; 
+import { ROLES } from "../../common/constants/roles.constant";
 
 export class UserModel {
     id: number
@@ -43,7 +43,7 @@ export class UserModel {
             return `${minutes} minute${minutes > 1 ? 's' : ''} ago`
         } else {
             return `${seconds} second${seconds > 1 ? 's' : ''} ago`
-        } 
+        }
     }
 
     getDateUpdateAgo(): string {

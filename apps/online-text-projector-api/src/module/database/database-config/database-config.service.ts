@@ -8,7 +8,7 @@ import { JwtIssuedEntity } from '../../jwt/entity/jwt-issued.entity';
 @Injectable()
 export class DatabaseConfigService implements TypeOrmOptionsFactory {
 
-    constructor(private configService: ConfigService) {}
+    constructor(private configService: ConfigService) { }
 
     createTypeOrmOptions(connectionName?: string): Promise<TypeOrmModuleOptions> | TypeOrmModuleOptions {
         const config: TypeOrmModuleOptions = {

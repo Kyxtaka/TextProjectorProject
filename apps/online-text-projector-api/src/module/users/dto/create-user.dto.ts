@@ -11,20 +11,20 @@ export class CreateUserDto {
 
     @IsNotEmpty({ message: 'Le mot de passe est requis' })
     @MinLength(8, { message: 'Le mot de passe doit contenir au moins 8 caractères' })
-    @Matches(/(?=(?:.*[A-Z]){1})/, { 
-        message: 'Le mot de passe doit contenir au moins 1 lettre majuscule' 
+    @Matches(/(?=(?:.*[A-Z]){1})/, {
+        message: 'Le mot de passe doit contenir au moins 1 lettre majuscule'
     })
-    @Matches(/(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/, { 
-        message: 'Le mot de passe doit contenir au moins 1 caractère spécial' 
+    @Matches(/(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/, {
+        message: 'Le mot de passe doit contenir au moins 1 caractère spécial'
     })
-    @Matches(/(?=(?:.*\d){4})/, { 
-        message: 'Le mot de passe doit contenir au moins 4 chiffres' 
+    @Matches(/(?=(?:.*\d){4})/, {
+        message: 'Le mot de passe doit contenir au moins 4 chiffres'
     })
     password: string;
 
     @IsNotEmpty({ message: 'La confirmation du mot de passe est requise' })
-    @Match('password', { 
-        message: 'Les mots de passe ne correspondent pas' 
+    @Match('password', {
+        message: 'Les mots de passe ne correspondent pas'
     })
     confirmPassword: string;
 

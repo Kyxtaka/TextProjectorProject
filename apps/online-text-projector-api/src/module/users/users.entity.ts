@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn, UpdateDateColumn, CreateDateColumn } from 'typeorm';
 import { ROLES } from '../../common/constants/roles.constant';
- 
+
 // export enum Permission {
 //   MEMBER = 'MEMBER',
 //   ADMIN = 'ADMIN',

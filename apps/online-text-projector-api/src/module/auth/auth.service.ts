@@ -18,13 +18,13 @@ export class AuthService {
     private jwtRevokedService: JwtRevokedService,
     private userService: UserService,
     private readonly configService: ConfigService
-  ) {}
+  ) { }
 
   async validateUserCredentials(email: string, password: string): Promise<UserModel | null> {
     const user = await this.userService.findUserByEmail(email);
     if (user && await bcrypt.compare(password, user.password)) {
       console.log('User validated successfully:', user);
-      return user;  
+      return user;
     }
     console.log('Invalid credentials provided for email:', email);
     return null;
@@ -69,7 +69,7 @@ export class AuthService {
     let expiresIn: number = 0;
     if (type === JWT_TYPE.ACCESS) {
       expiresIn = this.configService.get<number>('JWT_ACCESS_EXPIRES_IN') || 86400; // Default to 1 day
-    }else if (type === JWT_TYPE.REFRESH) {
+    } else if (type === JWT_TYPE.REFRESH) {
       expiresIn = this.configService.get<number>('JWT_REFRESH_EXPIRES_IN') || 604800; // Default to 7 days
     }
     const expiresAt = new Date(issuedAt.getTime() + expiresIn * 1000);

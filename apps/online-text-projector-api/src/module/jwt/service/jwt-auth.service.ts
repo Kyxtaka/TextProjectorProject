@@ -1,19 +1,18 @@
-import { Injectable} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtIssuedEntity } from '../entity/jwt-issued.entity';
 import { Repository } from 'typeorm';
-import crypto from 'crypto';
 import { JWT_TYPE } from '../../../common/constants/jwt-type.constant';
 
 @Injectable()
-export class JwtAuthService { 
+export class JwtAuthService {
     constructor(
         private readonly jwtService: JwtService,
-        
+
         @InjectRepository(JwtIssuedEntity)
         private readonly jwtIssuedRepository: Repository<JwtIssuedEntity>
-    ) {}
+    ) { }
 
     sign(payload: any): string {
         return this.jwtService.sign(payload);

@@ -1,11 +1,7 @@
 import { Controller, Post, Get, Body, UseGuards, Request, BadRequestException, Put } from '@nestjs/common';
 import { SongService } from './song.service';
 import { CreateSongDto } from './dto/create-song.dto';
-import { JwtAuthGuard } from '../jwt/guard/jwt-auth.guard';
 import { AllowAnonymous } from '../../common/decorators/allow-anonymous.decorator';
-import { Allow } from 'class-validator';
-import { use } from 'passport';
-
 
 @Controller('songs')
 export class SongController {
