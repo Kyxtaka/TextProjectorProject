@@ -2,6 +2,7 @@ import { UserDto } from "./dto/user.dto"
 import { ROLES } from "../../common/constants/roles.constant";
 
 export class UserModel {
+    uuid: string
     id: number
     createdAt: Date
     updatedAt: Date
@@ -12,6 +13,7 @@ export class UserModel {
 
     constructor(
         id: number,
+        uuid: string,
         username: string,
         email: string,
         password: string,
@@ -20,6 +22,7 @@ export class UserModel {
         updatedAt: Date
     ) {
         this.id = id;
+        this.uuid = uuid;
         this.username = username;
         this.email = email;
         this.password = password;
@@ -66,6 +69,7 @@ export class UserModel {
 
     toDto(): UserDto {
         return {
+            uuid: this.uuid,
             id: this.id,
             username: this.username,
             email: this.email,

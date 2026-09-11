@@ -38,6 +38,14 @@ export class UserService {
         }
         return this.entityToModel(userEntity);
     }
+    
+    async findUserByUuid(uuid: string): Promise<UserModel> {
+        const userEntity: UsersEntity | null = await this.userRepository.findOneBy({ uuid: uuid });
+        if (!userEntity) {
+            throw new NotFoundException(`User with uuid ${uuid} not found`);
+        }
+        return this.entityToModel(userEntity);
+    }
 
     async findUserByEmail(email: string): Promise<UserModel> {
         const userEntity: UsersEntity | null = await this.userRepository.findOneBy({ email: email });
@@ -62,35 +70,35 @@ export class UserService {
         return this.entityToModel(createdUserEntity)
     }
 
-    async deleteUser(id: number): Promise<boolean> {
-        const deleteResult = await this.userRepository.delete(id);
+    async deleteUser(uuid: string): Promise<boolean> {
+        const deleteResult = await this.userRepository.delete({ uuid: uuid });
         if (deleteResult.affected === 0) {
-            throw new NotFoundException(`User with id ${id} not found`);
+            throw new NotFoundException(`User with uuid ${uuid} not found`);
         }
         return deleteResult.affected! > 0;
     }
 
-    // async requestDeletion(id: number): Promise<boolean> {
-    //     const userEntity = await this.userRepository.findOneBy({ id: id });
+    // async requestDeletion(uuid: string): Promise<boolean> {
+    //     const userEntity = await this.userRepository.findOneBy({ uuid: uuid });
     //     if (!userEntity) {
-    //         throw new NotFoundException(`User with id ${id} not found`);
+    //         throw new NotFoundException(`User with uuid ${uuid} not found`);
     //     }
     //     userEntity.permission = ROLES.REQUEST_DELETION;
     //     const updatedUserEntity = await this.userRepository.save(userEntity);
     //     return updatedUserEntity.permission === ROLES.REQUEST_DELETION;
     // }
 
-    async updateUser(id: number, updateData: UpdateUserDto): Promise<UserModel> {
-        const userEntity = await this.userRepository.findOneBy({ id: id });
+    async updateUser(uuid: string, updateData: UpdateUserDto): Promise<UserModel> {
+        const userEntity = await this.userRepository.findOneBy({ uuid: uuid });
         if (!userEntity) {
-            throw new NotFoundException(`User with id ${id} not found`);
+            throw new NotFoundException(`User with uuid ${uuid} not found`);
         }
         if (updateData.username) {
             userEntity.username = updateData.username;
         }
         if (updateData.email) {
             const existingUser = await this.userRepository.findOneBy({ email: updateData.email });
-            if (existingUser && existingUser.id !== id) {
+            if (existingUser && existingUser.uuid !== uuid) {
                 throw new BadRequestException(`Email ${updateData.email} is already taken`);
             }
             userEntity.email = updateData.email;
@@ -105,9 +113,12 @@ export class UserService {
         return this.entityToModel(updatedUserEntity);
     }
 
+
+
     entityToModel(userEntity: UsersEntity): UserModel {
         return new UserModel(
             userEntity.id,
+            userEntity.uuid,
             userEntity.username,
             userEntity.email,
             userEntity.password,
@@ -120,6 +131,7 @@ export class UserService {
     modelToEntity(userModel: UserModel): UsersEntity {
         const userEntity = new UsersEntity();
         userEntity.id = userModel.id;
+        userEntity.uuid = userModel.uuid;
         userEntity.username = userModel.username;
         userEntity.email = userModel.email;
         userEntity.password = userModel.password;
@@ -131,6 +143,7 @@ export class UserService {
 
     modelToDto(userModel: UserModel): UserDto {
         return {
+            uuid: userModel.uuid,
             id: userModel.id,
             username: userModel.username,
             email: userModel.email,

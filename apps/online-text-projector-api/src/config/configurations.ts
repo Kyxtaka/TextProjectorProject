@@ -2,6 +2,7 @@ export default () => ({
     // Server configuration
     server: (() => {
         const port = parseInt(process.env.PORT || '3000');
+        const apiRootPath = process.env.API_ROOT_PATH || '/api/v1';
         const node_env = process.env.NODE_ENV || 'development';
         const isProduction = node_env === 'production';
         const isDevelopment = node_env === 'development';
@@ -13,6 +14,7 @@ export default () => ({
             isProduction,
             isDevelopment,
             isTest,
+            apiRootPath,
             cors_origin,
         };
     })(),

@@ -22,27 +22,40 @@ export class UsersController {
         return this.userService.modelToDto(user);
     }
 
-    @Put(':id')
-    async updateUser(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto, @Request() req): Promise<UserDto> {
+    @Get('email/:email')
+    @AuthRole(ROLES.ADMIN, ROLES.SUPER_ADMIN)
+    async getUserByEmail(@Param('email') email: string): Promise<UserDto> {
+        const user = await this.userService.findUserByEmail(email);
+        return this.userService.modelToDto(user);
+    }
+
+    @Get('profile/:uuid')
+    async getProfile(@Request() req): Promise<UserDto> {
+        const user = await this.userService.findUserByUuid(req.user.uuid);
+        return this.userService.modelToDto(user);
+    }
+
+    @Put(':uuid')
+    async updateUser(@Param('uuid') uuid: string, @Body() updateUserDto: UpdateUserDto, @Request() req): Promise<UserDto> {
         // Debug logs
         console.log('Request user in updateUser:', req.user);
-        console.log('typeof req.user.sub:', typeof req.user?.sub, 'typeof id:', typeof id);
-        console.log('is user id in updateUser:', req.user?.sub);
+        console.log('typeof req.user.sub:', typeof req.user?.sub, 'typeof uuid:', typeof uuid);
+        console.log('is user uuid in updateUser:', req.user?.sub);
         console.log('is payload user roles in admin roles:', [ROLES.ADMIN, ROLES.SUPER_ADMIN].includes(req.user?.role));
 
-        const tempUser = await this.userService.findUserById(id);
+        const tempUser = await this.userService.findUserByUuid(uuid);
         if (!tempUser) {
-            throw new NotFoundException(`User with id ${id} not found`);
+            throw new NotFoundException(`User with uuid ${uuid} not found`);
         }
 
-        const isSelf = req.user.sub === Number(id);
+        const isSelf = req.user.sub === uuid;
         const isAdmin = req.user.role === ROLES.ADMIN;
         const isSuperAdmin = req.user.role === ROLES.SUPER_ADMIN;
         const isPermissionUpdate = !!updateUserDto.permission;
 
         // 1. Un membre ne peut modifier que son profil
         if (!isSelf && !isAdmin && !isSuperAdmin) {
-            throw new ForbiddenException(`You do not have the rights to update user with id ${id} (This is not your user profile)`);
+            throw new ForbiddenException(`You do not have the rights to update user with uuid ${uuid} (This is not your user profile)`);
         }
 
         // 2. Seuls admin/super-admin peuvent modifier les permissions
@@ -70,16 +83,16 @@ export class UsersController {
             throw new ForbiddenException(`You do not have the rights to update ADMIN permissions (ADMIN permissions can only be updated by a SUPER_ADMIN)`);
         }
 
-        const updatedUser = await this.userService.updateUser(id, updateUserDto);
+        const updatedUser = await this.userService.updateUser(uuid, updateUserDto);
         return this.userService.modelToDto(updatedUser);
     }
 
-    @Delete(':id')
+    @Delete(':uuid')
     @AuthRole(ROLES.ADMIN, ROLES.SUPER_ADMIN)
-    async deleteUser(@Param('id') id: number): Promise<boolean> {
-        const processed = await this.userService.deleteUser(id);
+    async deleteUser(@Param('uuid') uuid: string): Promise<boolean> {
+        const processed = await this.userService.deleteUser(uuid);
         if (!processed) {
-            throw new NotFoundException(`User with id ${id} not found`);
+            throw new NotFoundException(`User with uuid ${uuid} not found`);
         }
         return true;
     }

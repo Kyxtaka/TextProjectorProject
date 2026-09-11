@@ -27,7 +27,6 @@
     "apps:api:seed:songs:dev": "cd apps/online-text-projector-api && npm run seed:songs:dev",
     "apps:api:seed:songs:test": "cd apps/online-text-projector-api && npm run seed:songs:test",
     "apps:api:seed:songs:prod": "cd apps/online-text-projector-api && npm run seed:songs:prod",
-
     "apps:client:start": "cd apps/online-text-projector-client && npm run start",
     "apps:client:start:dev": "cd apps/online-text-projector-client && npm run dev"
   },

@@ -30,3 +30,4 @@ Thumbs.db
 .env.production
 .env.test
 
+docker-compose.override.yml

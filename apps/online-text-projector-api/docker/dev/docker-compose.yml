@@ -10,6 +10,21 @@ services:
     volumes:
       - local-db-data:/var/lib/mysql
 
+  local-mongo:
+    container_name: local-mongo
+    image: mongo:8.3
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: <YOUR_MONGO_PASSWORD>
+      MONGO_INITDB_DATABASE: otpcontentdev
+    ports:
+      - "27018:27017"
+    volumes:
+      - local-mongo-data:/data/db
+
 volumes:
   local-db-data:
+    driver: local
+  local-mongo-data:
     driver: local

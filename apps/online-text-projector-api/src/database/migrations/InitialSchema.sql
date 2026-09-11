@@ -17,6 +17,7 @@ CREATE TABLE
 
   -- otp_database_dev.users definition
 
+-- otp_database_dev.users definition
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
 `username` varchar(255) NOT NULL,
@@ -27,7 +28,9 @@ CREATE TABLE `users` (
 `updatedAt` datetime(6) NOT NULL DEFAULT current_timestamp(6) ON
 UPDATE
     current_timestamp(6),
+    `uuid` char(36) NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `IDX_fe0bb3f6520ee0469504521e71` (`username`),
-    UNIQUE KEY `IDX_97672ac88f789774dd47f7c8be` (`email`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+    UNIQUE KEY `IDX_97672ac88f789774dd47f7c8be` (`email`),
+    UNIQUE KEY `idx_users_uuid` (`uuid`)
+) ENGINE = InnoDB AUTO_INCREMENT = 4 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;

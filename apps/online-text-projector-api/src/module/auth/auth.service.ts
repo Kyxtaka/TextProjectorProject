@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { UserService } from '../users/user.service';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
@@ -21,20 +21,28 @@ export class AuthService {
   ) { }
 
   async validateUserCredentials(email: string, password: string): Promise<UserModel | null> {
-    const user = await this.userService.findUserByEmail(email);
-    if (user && await bcrypt.compare(password, user.password)) {
-      console.log('User validated successfully:', user);
-      return user;
+    try {
+      const user = await this.userService.findUserByEmail(email);
+      if (user && await bcrypt.compare(password, user.password)) {
+        console.log('User validated successfully:', user);
+        return user;
+      }
+      console.log('Invalid credentials provided for email:', email);
+      return null;
+    } catch (error) {
+      // ovveride thrown NotFoundException to UnauthorizedException for security reasons
+      if (error instanceof NotFoundException) {
+        throw new UnauthorizedException('Invalid credentials');
+      }
+      throw error;
     }
-    console.log('Invalid credentials provided for email:', email);
-    return null;
   }
 
 
   createJwtPayload(user: UserModel): Payload {
     const payload: Payload = {
       email: user.email,
-      sub: user.id,
+      sub: user.uuid,
       role: user.permission,
       jti: crypto.randomUUID(), // Générer un jti unique basé sur l'utilisateur
       jwt_type: JWT_TYPE.ACCESS,
@@ -43,13 +51,36 @@ export class AuthService {
     return payload;
   }
 
-  async login(user: UserModel, payload: Payload) {
+  createRefreshJwtPayload(user: UserModel): Payload {
+    const payload: Payload = this.createJwtPayload(user);
+    payload.jwt_type = JWT_TYPE.REFRESH;
+    return payload;
+  }
+
+  async login(user: UserModel, payload: Payload, refreshPayload: Payload): Promise<{ access_token: string, refresh_token: string }> {
+
     console.log('Generating JWT for user object:', user);
     console.log('JWT Issued Entity:', payload);
     this.insertJwtIssued(payload.jti, user.id, payload.jwt_type);
+    this.insertJwtIssued(refreshPayload.jti, user.id, refreshPayload.jwt_type);
     return {
       access_token: this.jwtService.sign(payload),
+      refresh_token: this.jwtService.signRefreshToken(refreshPayload),
     };
+  }
+
+  async verifyRefreshToken(refreshToken: string): Promise<Payload> {
+    try {
+      const decoded = this.jwtService.verifyRefreshToken(refreshToken);
+      const isRevoked = await this.jwtRevokedService.isRevokedByJti((await decoded).jti);
+      if (isRevoked) {
+        throw new UnauthorizedException('Refresh token has been revoked');
+      }
+      return decoded;
+    } catch (error) {
+      console.error('Error verifying refresh token:', error);
+      throw new UnauthorizedException('Invalid refresh token');
+    }
   }
 
   async revokeTokenByJti(jti: string, currentUser: UserModel): Promise<void> {
@@ -74,5 +105,9 @@ export class AuthService {
     }
     const expiresAt = new Date(issuedAt.getTime() + expiresIn * 1000);
     return await this.jwtService.insertJwtIssued(jti, userId, issuedAt, expiresAt, type);
+  }
+
+  async revokeTokensByUserId(userId: number): Promise<void> {
+    await this.jwtRevokedService.revokeTokensByUserId(userId);
   }
 }
