@@ -7,7 +7,12 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
   const apiRootPath = configService.get<string>('server.apiRootPath', '/api/v1');
-
+  const corsOrigins = configService.get<string>('server.corsOrigins', '*');
+  app.enableCors({
+    origin: corsOrigins,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
   app.setGlobalPrefix(apiRootPath);
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(process.env.PORT ?? 3000);

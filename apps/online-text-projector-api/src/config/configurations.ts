@@ -7,7 +7,7 @@ export default () => ({
         const isProduction = node_env === 'production';
         const isDevelopment = node_env === 'development';
         const isTest = node_env === 'test';
-        const cors_origin = process.env.CORS_ORIGIN || '*';
+        const corsOrigins = process.env.CORS_ORIGIN || '*';
         return {
             port,
             node_env,
@@ -15,7 +15,7 @@ export default () => ({
             isDevelopment,
             isTest,
             apiRootPath,
-            cors_origin,
+            corsOrigins,
         };
     })(),
 

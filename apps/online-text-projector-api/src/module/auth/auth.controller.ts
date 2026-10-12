@@ -22,9 +22,7 @@ export class AuthController {
             const refreshPayload = this.authService.createRefreshJwtPayload(req.user);
             console.log('Generated Refresh JWT Payload:', refreshPayload);
             console.log('Generated JWT Payload:', payload);
-            return this.authService.login(req.user, payload, refreshPayload);
-       
-        
+            return this.authService.login(req.user, payload, refreshPayload); 
     }
 
     @Get('profile')
