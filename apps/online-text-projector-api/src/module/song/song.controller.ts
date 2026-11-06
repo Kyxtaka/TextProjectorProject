@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, UseGuards, Request, BadRequestException, Put } from '@nestjs/common';
+import { Controller, Post, Get, Body, UseGuards, Request, BadRequestException, Put, Delete } from '@nestjs/common';
 import { SongService } from './song.service';
 import { CreateSongDto } from './dto/create-song.dto';
 import { AllowAnonymous } from '../../common/decorators/allow-anonymous.decorator';
@@ -18,6 +18,12 @@ export class SongController {
         const id = req.params.id;
         const updateSongDto = req.body;
         return this.songService.updateSong(id, updateSongDto);
+    }
+
+    @Delete(':id')
+    async deleteSong(@Request() req) {
+        const id = req.params.id;
+        return this.songService.deleteSong(id);
     }
 
     @AllowAnonymous()
